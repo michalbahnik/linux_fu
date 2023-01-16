@@ -1,0 +1,7 @@
+# Changing tab key to autocomplete in prompt (switching panels done by alt-`)
+[main:empty-cmdline]
+ChangePanel = tab
+[main]
+ChangePanel = alt-`
+[input]
+Complete = tab; alt-tab
