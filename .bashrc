@@ -5,6 +5,7 @@ function pretty_csv {
 }
 
 # GNU syntax highlighting for less
+# Note: If file type is not associated with a language, add it to lang.map file (i.e. `bashrc = sh.lang`)
 hless() {
     source-highlight -f esc256 --style-file=esc256.style -i "$1" | less -R;
 }
