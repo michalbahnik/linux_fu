@@ -8,8 +8,8 @@ mkdir -p "$notes_dir"
 # Function to display note explorer
 function show_explorer() {
     clear
-    echo "Note Explorer"
-    echo "-------------"
+    echo "Note Explorer - Nanopad"
+    echo "-----------------------"
     local file_list=($(find "$notes_dir" -type f -name "*.md" | sort -r))
     if [ ${#file_list[@]} -eq 0 ]; then
         echo "No notes found. Create a new one."
@@ -31,8 +31,11 @@ function show_explorer() {
         select option in "${options[@]}"; do
             case $option in
                 "Create New Note")
-                    read -p "Enter note name: " note_name
+                    read -p "Enter note name (Enter for quick note): " note_name
                     save_path="$notes_dir/$note_name"
+                    if [[ -z $note_name ]]; then
+                        save_path="$notes_dir/quick_note.md"
+                    fi
                     if [[ $note_name != *.md ]]; then
                         save_path="$notes_dir/$note_name.md"
                     fi
@@ -59,19 +62,18 @@ function show_explorer() {
 # Function to remove a note
 function remove_note() {
     clear
-    echo "Remove Note"
-    echo "-----------"
+    echo "Remove Note - Nanopad"
+    echo "---------------------"
     local file_list=($(find "$notes_dir" -type f -name "*.md" | sort -r))
     if [ ${#file_list[@]} -eq 0 ]; then
         echo "No notes to remove."
     else
         PS3="Select note to remove or go back: "
-        options=()
+        options=("Go Back")
         for file in "${file_list[@]}"; do
             relative_path=${file#$notes_dir/}
             options+=("$relative_path")
         done
-        options+=("Go Back")
         select option in "${options[@]}"; do
             case $option in
                 "Go Back")
@@ -96,6 +98,9 @@ else
     note_path="$1"
     if [ ! -f "$notes_dir/$note_path" ]; then
         mkdir -p "$(dirname "$notes_dir/$note_path")"
+        if [[ $note_path != *.md ]]; then
+            note_path="$note_path.md"
+        fi
         touch "$notes_dir/$note_path"
     fi
     nano "$notes_dir/$note_path"
