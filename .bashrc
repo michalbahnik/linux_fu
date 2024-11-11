@@ -10,6 +10,11 @@ hless() {
     source-highlight -f esc256 --style-file=esc256.style -i "$1" | less -R;
 }
 
+# Recursively remove all subfolders older than n days - use with caution!
+rmolder() {
+    find "$1"/* -type dir -depth 0 -mtime +"$2" -exec rm -r "{}" \;
+}
+
 # ALIASES
 # Define a bell sound macro (for example use `; bell` to notify command is done)
 alias bell="echo -ne '\007'"
