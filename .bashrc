@@ -14,6 +14,10 @@ hless() {
 rmolder() {
     find "$1"/* -maxdepth 0 -type d -mtime +"$2" -exec rm -r "{}" \;
 }
+# Recursively remove all subfolders older than n days - interactively asks for each folder
+irmolder() {
+    find "$1"/* -maxdepth 0 -type d -mtime +"$2" -exec sh -c 'read -p "Remove {}? [y/N] " answer; [ "$answer" = "y" ] && rm -r "{}"' \;
+}
 
 # ALIASES
 # Define a bell sound macro (for example use `; bell` to notify command is done)
