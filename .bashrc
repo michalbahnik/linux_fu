@@ -12,7 +12,7 @@ hless() {
 
 # Recursively remove all subfolders older than n days - use with caution!
 rmolder() {
-    find "$1"/* -type dir -depth 0 -mtime +"$2" -exec rm -r "{}" \;
+    find "$1"/* -maxdepth 0 -type d -mtime +"$2" -exec rm -r "{}" \;
 }
 
 # ALIASES
