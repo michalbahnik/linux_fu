@@ -22,3 +22,5 @@ irmolder() {
 # ALIASES
 # Define a bell sound macro (for example use `; bell` to notify command is done)
 alias bell="echo -ne '\007'"
+# Activate virtual environment
+alias svenv="source .venv/bin/activate"
